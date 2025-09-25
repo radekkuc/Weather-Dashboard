@@ -14,6 +14,8 @@ public class City {
     private Long userId;
     private String name;
 
+    public City() {}
+
     public City(Long userId, String name) {
         this.userId = userId;
         this.name = name;
