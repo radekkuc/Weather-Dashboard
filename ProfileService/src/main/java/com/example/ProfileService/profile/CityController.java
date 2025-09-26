@@ -40,6 +40,10 @@ public class CityController {
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
+    @DeleteMapping("/{name}")
+    public void deleteCity(@PathVariable String name) {
+        cityService.deleteCity(name);
+    }
 
 
 }

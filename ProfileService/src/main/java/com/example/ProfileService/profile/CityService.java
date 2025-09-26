@@ -20,6 +20,7 @@ public class CityService {
     }
 
     public City addFavouriteCity(City city){
+        //if(cityRepository.)
         return cityRepository.save(city);
     }
 
@@ -27,5 +28,10 @@ public class CityService {
     @Transactional
     public List<City> addFavouriteCities(List<City> cities) {
         return cityRepository.saveAll(cities);
+    }
+
+    @Transactional
+    public void deleteCity(String name) {
+        cityRepository.deleteByName(name);
     }
 }
