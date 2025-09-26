@@ -10,16 +10,16 @@ import java.util.List;
 public class CityController {
     private final CityService cityService;
 
-    CityController(CityService cityService) {
+    public CityController(CityService cityService) {
         this.cityService = cityService;
     }
 
     @GetMapping("/favourite/{userId}")
-    ResponseEntity<List<City>> getFavouriteCities(@PathVariable Long userId) {
+    public ResponseEntity<List<City>> getFavouriteCities(@PathVariable Long userId) {
         List<City> favourites = cityService.getFavouriteCities(userId);
 
         if(favourites.isEmpty()){
-            // Build needed here, without it it is not a full response entity
+            // Build needed here, without it, it is not a full response entity
            return ResponseEntity.noContent().build();
         }
         else {
@@ -29,8 +29,14 @@ public class CityController {
     }
 
     @PostMapping("/favourite")
-    ResponseEntity<City> addFavouriteCity(@RequestBody City city) {
+    public ResponseEntity<City> addFavouriteCity(@RequestBody City city) {
         City saved = cityService.addFavouriteCity(city);
+        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+    }
+
+    @PostMapping("/favourites")
+    public ResponseEntity<List<City>> addFavouriteCities(@RequestBody List<City> cities) {
+        List<City> saved = cityService.addFavouriteCities(cities);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 

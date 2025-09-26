@@ -1,5 +1,6 @@
 package com.example.ProfileService.profile;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,4 +23,9 @@ public class CityService {
         return cityRepository.save(city);
     }
 
+    // If any problem occurs during any saving then all changed are discarded
+    @Transactional
+    public List<City> addFavouriteCities(List<City> cities) {
+        return cityRepository.saveAll(cities);
+    }
 }
