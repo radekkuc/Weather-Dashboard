@@ -31,7 +31,7 @@ public class CityService {
     }
 
     @Transactional
-    public void deleteCity(String name) {
-        cityRepository.delete(cityRepository.findCityByName(name).orElseThrow(() -> new RuntimeException("Error with deleteCity")));
+    public void deleteCity(Long userId, String name) {
+        cityRepository.deleteByUserIdAndName(userId, name);
     }
 }

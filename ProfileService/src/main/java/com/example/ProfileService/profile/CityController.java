@@ -28,21 +28,21 @@ public class CityController {
         }
     }
 
-    @PostMapping("/favourite")
+    @PostMapping("/userId/favourite")
     public ResponseEntity<City> addFavouriteCity(@RequestBody City city) {
         City saved = cityService.addFavouriteCity(city);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
-    @PostMapping("/favourites")
+    @PostMapping("/userId/favourites")
     public ResponseEntity<List<City>> addFavouriteCities(@RequestBody List<City> cities) {
         List<City> saved = cityService.addFavouriteCities(cities);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
-    @DeleteMapping("/{name}")
-    public void deleteCity(@PathVariable String name) {
-        cityService.deleteCity(name);
+    @DeleteMapping("/{userId}/{name}")
+    public void deleteCity(@PathVariable String name, @PathVariable Long userId) {
+        cityService.deleteCity(userId, name);
     }
 
 
