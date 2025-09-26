@@ -16,7 +16,7 @@ public class CityService {
     }
 
     public List<City> getFavouriteCities(Long userId) {
-        return cityRepository.findByUserId(userId);
+        return cityRepository.findByUserId(userId).orElseThrow(() -> new RuntimeException("Error with getFavouriteCities"));
     }
 
     public City addFavouriteCity(City city){
