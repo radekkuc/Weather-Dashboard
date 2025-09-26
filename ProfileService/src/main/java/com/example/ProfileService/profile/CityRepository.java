@@ -10,9 +10,10 @@ import java.util.Optional;
 @Repository
 public interface CityRepository extends JpaRepository<City, Long> {
 
-    public Optional<List<City>> findByUserId(Long userId);
+    public Optional<List<City>> findCityByUserId(Long userId);
 
-    @Modifying
-    public void deleteByName(String name);
+    public Optional<City> findCityByName(String name);
 
+//    @Modifying
+//    public void deleteByName(String name);
 }

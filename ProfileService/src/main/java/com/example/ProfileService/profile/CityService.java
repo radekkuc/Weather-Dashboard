@@ -16,11 +16,11 @@ public class CityService {
     }
 
     public List<City> getFavouriteCities(Long userId) {
-        return cityRepository.findByUserId(userId).orElseThrow(() -> new RuntimeException("Error with getFavouriteCities"));
+        return cityRepository.findCityByUserId(userId).orElseThrow(() -> new RuntimeException("Error with getFavouriteCities"));
     }
 
     public City addFavouriteCity(City city){
-        //if(cityRepository.)
+        //if()
         return cityRepository.save(city);
     }
 
@@ -32,6 +32,6 @@ public class CityService {
 
     @Transactional
     public void deleteCity(String name) {
-        cityRepository.deleteByName(name);
+        cityRepository.delete(cityRepository.findCityByName(name).orElseThrow(() -> new RuntimeException("Error with deleteCity")));
     }
 }
