@@ -45,14 +45,14 @@ public class CityController {
     }
 
     @DeleteMapping("/{userId}/{name}")
-    public void deleteCity(@PathVariable Long userId, @PathVariable String name) {
+    public ResponseEntity<Void> deleteCity(@PathVariable Long userId, @PathVariable String name) {
         cityService.deleteCity(userId, name);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{userId}")
-    public void massDeleteCities(@PathVariable Long userId, @RequestBody List<String> names){
-        
+    public ResponseEntity<Void> deleteCities(@PathVariable Long userId, @RequestBody List<String> names){
+        cityService.deleteCities(userId, names);
+        return ResponseEntity.noContent().build();
     }
-
-
 }

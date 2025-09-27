@@ -17,12 +17,12 @@ public class CityService {
     }
 
     public List<City> getFavouriteCities(Long userId) {
-        return cityRepository.findCityByUserId(userId)
+        return cityRepository.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("Error with getFavouriteCities"));
     }
 
     public City addFavouriteCity(City city){
-        if(cityRepository.findCityByUserId(city.getId()).isPresent()){
+        if(cityRepository.findByUserId(city.getId()).isPresent()){
             throw new RuntimeException("Error with addFavouriteCity");
         }
         return cityRepository.save(city);
@@ -35,7 +35,7 @@ public class CityService {
 
         for(String name : names){
             cities.add(new City(userId, name));
-            if(cityRepository.findCityByUserIdAndName(userId, name).isPresent()){
+            if(cityRepository.findByUserIdAndName(userId, name).isPresent()){
                 throw new RuntimeException("Error with addFavouriteCities");
             }
         }
@@ -44,9 +44,20 @@ public class CityService {
 
     @Transactional
     public void deleteCity(Long userId, String name) {
-        if(cityRepository.findCityByUserId(userId).isEmpty() || cityRepository.findCityByName(name).isEmpty()){
+        int rows_del = cityRepository.deleteByUserIdAndName(userId, name);
+        if(rows_del == 0){
             throw new RuntimeException("Error with deleteCity");
         }
-        cityRepository.deleteCityByUserIdAndName(userId, name);
+    }
+
+    @Transactional
+    public void deleteCities(Long userId, List<String> names){
+        for(String name : names){
+            int rows_del = cityRepository.deleteByUserIdAndName(userId, name);
+
+            if(rows_del == 0){
+                throw new RuntimeException("Error with deleteCities");
+            }
+        }
     }
 }
