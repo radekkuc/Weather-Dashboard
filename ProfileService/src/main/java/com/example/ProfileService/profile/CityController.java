@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -13,6 +14,9 @@ public class CityController {
     public CityController(CityService cityService) {
         this.cityService = cityService;
     }
+
+    //@GerMapping
+    // Add a general one for looking for a single city without need of saving it
 
     @GetMapping("/favourite/{userId}")
     public ResponseEntity<List<City>> getFavouriteCities(@PathVariable Long userId) {
@@ -28,21 +32,26 @@ public class CityController {
         }
     }
 
-    @PostMapping("/userId/favourite")
-    public ResponseEntity<City> addFavouriteCity(@RequestBody City city) {
-        City saved = cityService.addFavouriteCity(city);
+    @PostMapping("/{userId}/favourite")
+    public ResponseEntity<City> addFavouriteCity(@PathVariable Long userId, @RequestBody String name) {
+        City saved = cityService.addFavouriteCity(new City(userId, name));
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
-    @PostMapping("/userId/favourites")
-    public ResponseEntity<List<City>> addFavouriteCities(@RequestBody List<City> cities) {
-        List<City> saved = cityService.addFavouriteCities(cities);
+    @PostMapping("/{userId}/favourites")
+    public ResponseEntity<List<City>> addFavouriteCities(@PathVariable Long userId, @RequestBody List<String> names) {
+        List<City> saved = cityService.addFavouriteCities(userId, names);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
     @DeleteMapping("/{userId}/{name}")
-    public void deleteCity(@PathVariable String name, @PathVariable Long userId) {
+    public void deleteCity(@PathVariable Long userId, @PathVariable String name) {
         cityService.deleteCity(userId, name);
+    }
+
+    @DeleteMapping("/{userId}")
+    public void massDeleteCities(@PathVariable Long userId, @RequestBody List<String> names){
+        
     }
 
 

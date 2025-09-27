@@ -14,6 +14,8 @@ public interface CityRepository extends JpaRepository<City, Long> {
 
     public Optional<City> findCityByName(String name);
 
+    public Optional<City> findCityByUserIdAndName(Long userId, String name);
+
     @Modifying
-    public void deleteByUserIdAndName(Long userId, String name);
+    public void deleteCityByUserIdAndName(Long userId, String name);
 }

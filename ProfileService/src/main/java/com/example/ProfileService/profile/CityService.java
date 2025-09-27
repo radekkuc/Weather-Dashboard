@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,22 +17,36 @@ public class CityService {
     }
 
     public List<City> getFavouriteCities(Long userId) {
-        return cityRepository.findCityByUserId(userId).orElseThrow(() -> new RuntimeException("Error with getFavouriteCities"));
+        return cityRepository.findCityByUserId(userId)
+                .orElseThrow(() -> new RuntimeException("Error with getFavouriteCities"));
     }
 
     public City addFavouriteCity(City city){
-        //if()
+        if(cityRepository.findCityByUserId(city.getId()).isPresent()){
+            throw new RuntimeException("Error with addFavouriteCity");
+        }
         return cityRepository.save(city);
     }
 
     // If any problem occurs during any saving then all changed are discarded
     @Transactional
-    public List<City> addFavouriteCities(List<City> cities) {
+    public List<City> addFavouriteCities(Long userId, List<String> names) {
+        List<City> cities = new ArrayList<>();
+
+        for(String name : names){
+            cities.add(new City(userId, name));
+            if(cityRepository.findCityByUserIdAndName(userId, name).isPresent()){
+                throw new RuntimeException("Error with addFavouriteCities");
+            }
+        }
         return cityRepository.saveAll(cities);
     }
 
     @Transactional
     public void deleteCity(Long userId, String name) {
-        cityRepository.deleteByUserIdAndName(userId, name);
+        if(cityRepository.findCityByUserId(userId).isEmpty() || cityRepository.findCityByName(name).isEmpty()){
+            throw new RuntimeException("Error with deleteCity");
+        }
+        cityRepository.deleteCityByUserIdAndName(userId, name);
     }
 }
