@@ -22,19 +22,12 @@ public class CityController {
     public ResponseEntity<List<City>> getFavouriteCities(@PathVariable Long userId) {
         List<City> favourites = cityService.getFavouriteCities(userId);
 
-        if(favourites.isEmpty()){
-            // Build needed here, without it, it is not a full response entity
-           return ResponseEntity.noContent().build();
-        }
-        else {
-            // There we do not need build because we return favourites
-            return ResponseEntity.ok(favourites);
-        }
+        return ResponseEntity.ok(favourites);
     }
 
     @PostMapping("/{userId}/favourite")
     public ResponseEntity<City> addFavouriteCity(@PathVariable Long userId, @RequestBody String name) {
-        City saved = cityService.addFavouriteCity(new City(userId, name));
+        City saved = cityService.addFavouriteCity(userId, name);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 

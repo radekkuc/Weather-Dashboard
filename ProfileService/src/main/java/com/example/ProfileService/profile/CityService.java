@@ -1,10 +1,14 @@
 package com.example.ProfileService.profile;
 
+import com.example.ProfileService.profile.exception.CityAlreadyExistsException;
+import com.example.ProfileService.profile.exception.CityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -18,14 +22,14 @@ public class CityService {
 
     public List<City> getFavouriteCities(Long userId) {
         return cityRepository.findByUserId(userId)
-                .orElseThrow(() -> new RuntimeException("Error with getFavouriteCities"));
+                .orElse(Collections.emptyList());
     }
 
-    public City addFavouriteCity(City city){
-        if(cityRepository.findByUserId(city.getId()).isPresent()){
-            throw new RuntimeException("Error with addFavouriteCity");
+    public City addFavouriteCity(Long userId, String name){
+        if(cityRepository.findByUserIdAndName(userId, name).isPresent()){
+            throw new CityAlreadyExistsException(name);
         }
-        return cityRepository.save(city);
+        return cityRepository.save(new City(userId, name));
     }
 
     // If any problem occurs during any saving then all changed are discarded
@@ -36,7 +40,7 @@ public class CityService {
         for(String name : names){
             cities.add(new City(userId, name));
             if(cityRepository.findByUserIdAndName(userId, name).isPresent()){
-                throw new RuntimeException("Error with addFavouriteCities");
+                throw new CityAlreadyExistsException(name);
             }
         }
         return cityRepository.saveAll(cities);
@@ -46,7 +50,7 @@ public class CityService {
     public void deleteCity(Long userId, String name) {
         int rows_del = cityRepository.deleteByUserIdAndName(userId, name);
         if(rows_del == 0){
-            throw new RuntimeException("Error with deleteCity");
+            throw new CityNotFoundException(name);
         }
     }
 
@@ -56,7 +60,7 @@ public class CityService {
             int rows_del = cityRepository.deleteByUserIdAndName(userId, name);
 
             if(rows_del == 0){
-                throw new RuntimeException("Error with deleteCities");
+                throw new CityNotFoundException(name);
             }
         }
     }
