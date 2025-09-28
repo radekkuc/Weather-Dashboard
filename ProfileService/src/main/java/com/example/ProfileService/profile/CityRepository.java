@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface CityRepository extends JpaRepository<City, Long> {
 
-    Optional<List<City>> findByUserId(Long userId);
+    List<City> findByUserId(Long userId);
 
     Optional<City> findByName(String name);
 

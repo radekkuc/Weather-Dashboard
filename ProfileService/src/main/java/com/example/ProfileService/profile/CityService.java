@@ -21,8 +21,7 @@ public class CityService {
     }
 
     public List<City> getFavouriteCities(Long userId) {
-        return cityRepository.findByUserId(userId)
-                .orElse(Collections.emptyList());
+        return cityRepository.findByUserId(userId);
     }
 
     public City addFavouriteCity(Long userId, String name){
@@ -38,10 +37,10 @@ public class CityService {
         List<City> cities = new ArrayList<>();
 
         for(String name : names){
-            cities.add(new City(userId, name));
             if(cityRepository.findByUserIdAndName(userId, name).isPresent()){
                 throw new CityAlreadyExistsException(name);
             }
+            cities.add(new City(userId, name));
         }
         return cityRepository.saveAll(cities);
     }

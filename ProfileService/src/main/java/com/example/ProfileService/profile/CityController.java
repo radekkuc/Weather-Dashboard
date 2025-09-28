@@ -15,7 +15,7 @@ public class CityController {
         this.cityService = cityService;
     }
 
-    //@GerMapping
+    //@GetMapping
     // Add a general one for looking for a single city without need of saving it
 
     @GetMapping("/favourite/{userId}")
