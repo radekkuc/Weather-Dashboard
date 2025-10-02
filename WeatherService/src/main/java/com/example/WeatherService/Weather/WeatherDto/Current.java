@@ -3,17 +3,17 @@ package com.example.WeatherService.Weather.WeatherDto;
 import java.time.LocalTime;
 
 public class Current {
-    private LocalTime last_updated;
+    private String last_updated;
     private float temp_c;
     private float temp_f;
     private Condition condition;
     private float pressure_mb;
 
-    public LocalTime getLast_updated() {
+    public String getLast_updated() {
         return last_updated;
     }
 
-    public void setLast_updated(LocalTime last_updated) {
+    public void setLast_updated(String last_updated) {
         this.last_updated = last_updated;
     }
 
