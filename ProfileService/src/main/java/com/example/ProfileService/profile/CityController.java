@@ -15,8 +15,9 @@ public class CityController {
         this.cityService = cityService;
     }
 
-    //@GetMapping
-    // Add a general one for looking for a single city without need of saving it
+//    @GetMapping("/weather/{city}")
+//    ResponseEntity<>
+
 
     @GetMapping("/favourite/{userId}")
     public ResponseEntity<List<City>> getFavouriteCities(@PathVariable Long userId) {
