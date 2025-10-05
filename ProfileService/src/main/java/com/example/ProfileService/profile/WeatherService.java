@@ -1,5 +1,6 @@
 package com.example.ProfileService.profile;
 
+import com.example.ProfileService.profile.WeatherDto.WeatherDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -11,9 +12,13 @@ public class WeatherService {
     private String apiUrl;
 
     @Autowired
-    public WeatherService(@Value("${http://localhost:8080}") String apiUrl, RestTemplate restTemplate) {
+    public WeatherService(@Value("${weather.service.url}") String apiUrl, RestTemplate restTemplate) {
         this.apiUrl = apiUrl;
         this.restTemplate = restTemplate;
     }
 
+    public WeatherDto getCurrentWeather(String city) {
+        String url = String.format("%s/weather/%s", apiUrl, city);
+        return restTemplate.getForObject(url, WeatherDto.class);
+    }
 }

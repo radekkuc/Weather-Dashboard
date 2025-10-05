@@ -1,5 +1,6 @@
 package com.example.ProfileService.profile;
 
+import com.example.ProfileService.profile.WeatherDto.WeatherDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,13 +11,17 @@ import java.util.List;
 @RestController
 public class CityController {
     private final CityService cityService;
+    private final WeatherService weatherService;
 
-    public CityController(CityService cityService) {
+    public CityController(CityService cityService, WeatherService weatherService) {
         this.cityService = cityService;
+        this.weatherService = weatherService;
     }
 
-//    @GetMapping("/weather/{city}")
-//    ResponseEntity<>
+    @GetMapping("/weather/{city}")
+    ResponseEntity<WeatherDto> getCurrentWeather(@PathVariable String city) {
+        return ResponseEntity.ok(weatherService.getCurrentWeather(city));
+    }
 
 
     @GetMapping("/favourite/{userId}")
