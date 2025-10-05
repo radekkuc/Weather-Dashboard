@@ -14,6 +14,13 @@ public class City {
     private Long userId;
     private String name;
 
+    private String country;
+    private String last_updated;
+    private float temp_c;
+    private float temp_f;
+    private String condition;
+    private int pressure_mb;
+
     public City() {}
 
     public City(Long userId, String name) {

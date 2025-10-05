@@ -23,7 +23,6 @@ public class CityController {
         return ResponseEntity.ok(weatherService.getCurrentWeather(city));
     }
 
-
     @GetMapping("/favourite/{userId}")
     public ResponseEntity<List<City>> getFavouriteCities(@PathVariable Long userId) {
         List<City> favourites = cityService.getFavouriteCities(userId);
