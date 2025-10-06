@@ -1,5 +1,19 @@
 package com.example.ProfileService.profile;
 
+import com.example.ProfileService.profile.WeatherDto.WeatherDto;
+
 public class Mapper {
-    
+
+    public City dtoToCity(Long userId, WeatherDto dto) {
+        City city = new City();
+        city.setId(userId);
+        city.setName(dto.getLocation().getName());
+        city.setCountry(dto.getLocation().getCountry());
+        city.setLast_updated(dto.getCurrent().getLast_updated());
+        city.setTemp_c(dto.getCurrent().getTemp_c());
+        city.setTemp_f(dto.getCurrent().getTemp_f());
+        city.setCondition(dto.getCurrent().getCondition().getText());
+        city.setPressure_mb(dto.getCurrent().getPressure_mb());
+        return city;
+    }
 }
