@@ -28,7 +28,6 @@ public class City {
         this.name = name;
     }
 
-
     public float getPressure_mb() {
         return pressure_mb;
     }
@@ -77,11 +76,11 @@ public class City {
         this.country = country;
     }
 
-    public Long getId() {
+    private Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    private void setId(Long id) {
         this.id = id;
     }
 

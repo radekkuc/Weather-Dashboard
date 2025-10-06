@@ -1,10 +1,12 @@
 package com.example.ProfileService.profile;
 
+import com.example.ProfileService.profile.WeatherDto.WeatherDto;
 import com.example.ProfileService.profile.exception.CityAlreadyExistsException;
 import com.example.ProfileService.profile.exception.CityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.example.ProfileService.profile.Mapper;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,21 +16,27 @@ import java.util.List;
 @Service
 public class CityService {
     private final CityRepository cityRepository;
+    private final WeatherService weatherService;
 
     @Autowired
-    public CityService(CityRepository cityRepository) {
+    public CityService(CityRepository cityRepository, WeatherService weatherService) {
         this.cityRepository = cityRepository;
+        this.weatherService = weatherService;
     }
 
     public List<City> getFavouriteCities(Long userId) {
         return cityRepository.findByUserId(userId);
     }
 
+    @Transactional
     public City addFavouriteCity(Long userId, String name){
         if(cityRepository.findByUserIdAndName(userId, name).isPresent()){
             throw new CityAlreadyExistsException(name);
         }
-        return cityRepository.save(new City(userId, name));
+
+        WeatherDto dto = weatherService.getCurrentWeather(name);
+        City city = Mapper.dtoToCity(userId, dto);
+        return cityRepository.save(city);
     }
 
     // If any problem occurs during any saving then all changed are discarded
