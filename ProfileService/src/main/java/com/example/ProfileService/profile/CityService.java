@@ -48,7 +48,9 @@ public class CityService {
             if(cityRepository.findByUserIdAndName(userId, name).isPresent()){
                 throw new CityAlreadyExistsException(name);
             }
-            cities.add(new City(userId, name));
+            WeatherDto dto = weatherService.getCurrentWeather(name);
+            City city = Mapper.dtoToCity(userId, dto);
+            cities.add(city);
         }
         return cityRepository.saveAll(cities);
     }

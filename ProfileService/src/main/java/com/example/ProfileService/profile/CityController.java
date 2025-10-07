@@ -26,7 +26,6 @@ public class CityController {
     @GetMapping("/favourite/{userId}")
     public ResponseEntity<List<City>> getFavouriteCities(@PathVariable Long userId) {
         List<City> favourites = cityService.getFavouriteCities(userId);
-
         return ResponseEntity.ok(favourites);
     }
 
