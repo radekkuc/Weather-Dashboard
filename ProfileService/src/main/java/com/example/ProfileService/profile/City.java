@@ -13,7 +13,6 @@ public class City {
 
     private Long userId;
     private String name;
-
     private String country;
     private String last_updated;
     private float temp_c;
