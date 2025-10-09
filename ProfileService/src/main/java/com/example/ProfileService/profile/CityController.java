@@ -30,7 +30,8 @@ public class CityController {
     }
 
     @PostMapping("/{userId}/favourite")
-    public ResponseEntity<City> addFavouriteCity(@PathVariable Long userId, @RequestBody String name) {
+    public ResponseEntity<City> addFavouriteCity(@PathVariable Long userId, @RequestBody CityRequest request) {
+        String name = request.getName();
         City saved = cityService.addFavouriteCity(userId, name);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
