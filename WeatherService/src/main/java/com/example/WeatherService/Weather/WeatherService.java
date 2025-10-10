@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 @Service
@@ -24,7 +25,12 @@ public class WeatherService {
 
     public WeatherDto getCurrentWeather(String city) {
         String url = String.format("%s/current.json?key=%s&q=%s&aqi=no", baseUrl, apiKey, city);
-
-        return restTemplate.getForObject(url, WeatherDto.class);
+        try {
+            return restTemplate.getForObject(url, WeatherDto.class);
+        }
+        catch(HttpClientErrorException.BadRequest e) {
+            throw new RuntimeException("Custom exception to be implemented");
+        }
+        // catch for some other error than bad request
     }
 }
