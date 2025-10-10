@@ -1,6 +1,6 @@
 package com.example.ProfileService.profile;
 
-import com.example.ProfileService.profile.WeatherDto.WeatherDto;
+import com.example.ProfileService.profile.weatherDto.WeatherDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.example.WeatherService.Weather.WeatherDto;
+package com.example.ProfileService.profile.weatherDto;
 
 public class Condition {
     private String text;

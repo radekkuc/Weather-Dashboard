@@ -1,7 +1,8 @@
-package com.example.WeatherService.Weather;
+package com.example.WeatherService.weather;
 
-import com.example.WeatherService.Weather.WeatherDto.WeatherDto;
-import jakarta.servlet.annotation.WebFilter;
+import com.example.WeatherService.weather.exception.CityNotFoundException;
+import com.example.WeatherService.weather.exception.GenericException;
+import com.example.WeatherService.weather.weatherDto.WeatherDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -25,12 +26,15 @@ public class WeatherService {
 
     public WeatherDto getCurrentWeather(String city) {
         String url = String.format("%s/current.json?key=%s&q=%s&aqi=no", baseUrl, apiKey, city);
-        try {
-            return restTemplate.getForObject(url, WeatherDto.class);
-        }
-        catch(HttpClientErrorException.BadRequest e) {
-            throw new RuntimeException("Custom exception to be implemented");
-        }
-        // catch for some other error than bad request
+        return restTemplate.getForObject(url, WeatherDto.class);
+//        try {
+//            return restTemplate.getForObject(url, WeatherDto.class);
+//        }
+//        catch(HttpClientErrorException.BadRequest e) {
+//            throw new CityNotFoundException(city);
+//        }
+//        catch(Exception e) {
+//            throw new GenericException();
+//        }
     }
 }

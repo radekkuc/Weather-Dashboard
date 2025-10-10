@@ -1,6 +1,4 @@
-package com.example.WeatherService.Weather.WeatherDto;
-
-import java.time.LocalTime;
+package com.example.ProfileService.profile.weatherDto;
 
 public class Location {
     private String name;

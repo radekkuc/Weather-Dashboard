@@ -1,4 +1,4 @@
-package com.example.WeatherService.Weather.WeatherDto;
+package com.example.WeatherService.weather.weatherDto;
 
 public class WeatherDto {
     private Location location;

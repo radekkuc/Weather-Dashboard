@@ -1,4 +1,4 @@
-package com.example.ProfileService.profile.WeatherDto;
+package com.example.WeatherService.weather.weatherDto;
 
 public class Current {
     private String last_updated;

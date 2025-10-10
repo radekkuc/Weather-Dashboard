@@ -1,6 +1,6 @@
 package com.example.ProfileService.profile;
 
-import com.example.ProfileService.profile.WeatherDto.WeatherDto;
+import com.example.ProfileService.profile.weatherDto.WeatherDto;
 
 public class Mapper {
 

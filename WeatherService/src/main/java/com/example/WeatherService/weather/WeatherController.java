@@ -1,6 +1,6 @@
-package com.example.WeatherService.Weather;
+package com.example.WeatherService.weather;
 
-import com.example.WeatherService.Weather.WeatherDto.WeatherDto;
+import com.example.WeatherService.weather.weatherDto.WeatherDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

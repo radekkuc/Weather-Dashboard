@@ -1,4 +1,4 @@
-package com.example.WeatherService.Weather;
+package com.example.WeatherService.weather;
 
 
 import org.springframework.context.annotation.Bean;
