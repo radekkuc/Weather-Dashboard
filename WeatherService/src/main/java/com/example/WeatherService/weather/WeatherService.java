@@ -26,15 +26,15 @@ public class WeatherService {
 
     public WeatherDto getCurrentWeather(String city) {
         String url = String.format("%s/current.json?key=%s&q=%s&aqi=no", baseUrl, apiKey, city);
-        return restTemplate.getForObject(url, WeatherDto.class);
-//        try {
-//            return restTemplate.getForObject(url, WeatherDto.class);
-//        }
-//        catch(HttpClientErrorException.BadRequest e) {
-//            throw new CityNotFoundException(city);
-//        }
-//        catch(Exception e) {
-//            throw new GenericException();
-//        }
+        //return restTemplate.getForObject(url, WeatherDto.class);
+        try {
+            return restTemplate.getForObject(url, WeatherDto.class);
+        }
+        catch(HttpClientErrorException.BadRequest | HttpClientErrorException.NotFound e) {
+            throw new CityNotFoundException(city);
+        }
+        catch(Exception e) {
+            throw new GenericException();
+        }
     }
 }
