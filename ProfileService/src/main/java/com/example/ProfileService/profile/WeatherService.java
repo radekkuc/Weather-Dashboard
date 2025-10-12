@@ -10,8 +10,8 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class WeatherService {
-    private RestTemplate restTemplate;
-    private String apiUrl;
+    private final RestTemplate restTemplate;
+    private final String apiUrl;
 
     @Autowired
     public WeatherService(@Value("${weather.service.url}") String apiUrl, RestTemplate restTemplate) {

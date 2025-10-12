@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class WeatherController {
-    WeatherService weatherService;
+    private final WeatherService weatherService;
 
     @Autowired
     public WeatherController(WeatherService weatherService) {
@@ -19,7 +19,6 @@ public class WeatherController {
 
     @GetMapping("/weather/{city}")
     ResponseEntity<WeatherDto> getCurrentWeather(@PathVariable String city) {
-        WeatherDto weatherDto = weatherService.getCurrentWeather(city);
-        return ResponseEntity.ok(weatherDto);
+        return ResponseEntity.ok(weatherService.getCurrentWeather(city));
     }
 }
