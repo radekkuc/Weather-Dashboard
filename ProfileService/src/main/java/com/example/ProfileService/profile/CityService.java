@@ -21,8 +21,20 @@ public class CityService {
         this.weatherService = weatherService;
     }
 
+    @Transactional
     public List<City> getFavouriteCities(Long userId) {
-        return cityRepository.findByUserId(userId);
+        return updateCities(userId);
+    }
+
+    @Transactional
+    public List<City> updateCities(Long userId) {
+        List<City> saved_cities = cityRepository.findByUserId(userId);
+
+        for(City city : saved_cities) {
+            WeatherDto dto = weatherService.getCurrentWeather(city.getName());
+            Mapper.updateCityFields(city, dto);
+        }
+        return saved_cities;
     }
 
     @Transactional

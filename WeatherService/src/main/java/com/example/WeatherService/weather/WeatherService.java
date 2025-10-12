@@ -26,7 +26,6 @@ public class WeatherService {
 
     public WeatherDto getCurrentWeather(String city) {
         String url = String.format("%s/current.json?key=%s&q=%s&aqi=no", baseUrl, apiKey, city);
-        //return restTemplate.getForObject(url, WeatherDto.class);
         try {
             return restTemplate.getForObject(url, WeatherDto.class);
         }

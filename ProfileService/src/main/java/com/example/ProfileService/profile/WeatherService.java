@@ -21,7 +21,6 @@ public class WeatherService {
 
     public WeatherDto getCurrentWeather(String city) {
         String url = String.format("%s/weather/%s", apiUrl, city);
-        //return restTemplate.getForObject(url, WeatherDto.class);
         try {
             return restTemplate.getForObject(url, WeatherDto.class);
         }
