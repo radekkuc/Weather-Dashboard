@@ -22,6 +22,6 @@ public class AuthController {
     @PostMapping("/login")
     ResponseEntity<String> login(@RequestBody Map<String, String> credentials) {
 
-        
+
     }
 }

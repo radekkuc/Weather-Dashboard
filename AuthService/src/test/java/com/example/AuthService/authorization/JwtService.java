@@ -10,6 +10,10 @@ public class JwtService {
         return "";
     }
 
+    public String extractUsername() {
+        return "";
+    }
+
     public boolean verifyToken() {
         return false;
     }
