@@ -1,4 +1,6 @@
 package com.example.AuthService.authorization;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -21,9 +23,10 @@ public class JwtService {
         this.super_secret_key = super_secret_key;
     }
 
+
     public String generateToken(String username) {
         HashMap<String, Object> claims = new HashMap<String, Object>();
-        return Jwts.builder()
+        return Jwts.builder() // Creates token
                 .setClaims(claims)
                 .setSubject(username)
                 .setIssuedAt(new Date())
@@ -37,11 +40,38 @@ public class JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String extractUsername() {
-        return "";
+    // providing secret key, building parser, parsing, if everything went well then we getBody, extract name
+    public String extractUsername(String token) {
+        return Jwts.parserBuilder() // Parses token
+                .setSigningKey(getKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
     }
 
-    public boolean verifyToken() {
-        return false;
+    public Claims extractAllClaims(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+    public boolean isExpired(String token) {
+        return extractAllClaims(token).getExpiration().before(new Date());
+    }
+
+    public boolean isValid(String token) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(getKey())
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        }
+        catch(JwtException | IllegalArgumentException e) {
+            return false;
+        }
     }
 }
