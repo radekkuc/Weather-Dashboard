@@ -14,13 +14,13 @@ import java.util.Map;
 public class AuthController {
 
     @PostMapping("/register")
-    ResponseEntity<String> register(@RequestBody Map<String, String> credentials) {
+    ResponseEntity<String> register(@RequestBody AuthRequest credentials) {
 
 
     }
 
     @PostMapping("/login")
-    ResponseEntity<String> login(@RequestBody Map<String, String> credentials) {
+    ResponseEntity<String> login(@RequestBody AuthRequest credentials) {
 
 
     }

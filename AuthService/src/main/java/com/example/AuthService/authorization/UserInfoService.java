@@ -8,18 +8,28 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthService {
+public class UserInfoService implements UserDetailsService {
     private final AuthRepository authRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AuthService(AuthRepository authRepository, PasswordEncoder passwordEncoder) {
+    public UserInfoService(AuthRepository authRepository, PasswordEncoder passwordEncoder) {
         this.authRepository = authRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void register(String )
+    public void addUser(String username, String password) {
+        User user = new User(username, password);
+        user.setRole("User");
 
+        if(authRepository.findByUsername(username).isPresent()) {
+            throw new RuntimeException("User already exists");
+        }
+        authRepository.save(user);
+    }
 
-
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
+    }
 }
