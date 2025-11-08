@@ -18,7 +18,9 @@ public class AuthService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void register(String )
+    public void register(String username, String password) {
+        // ???
+    }
 
 
 
