@@ -31,7 +31,8 @@ public class UserInfoService implements UserDetailsService {
     // UserDetails is an interface which represents one authenticated user
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return authRepository.findByUsername(username).orElseThrow(() -> new RuntimeException(""));
-
+        User user = authRepository.findByUsername(username).orElseThrow(
+                () -> new RuntimeException("User does not exist"));
+        return new UserInfoDetails(user);
     }
 }
