@@ -28,8 +28,10 @@ public class UserInfoService implements UserDetailsService {
         authRepository.save(user);
     }
 
+    // UserDetails is an interface which represents one authenticated user
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
+        return authRepository.findByUsername(username).orElseThrow(() -> new RuntimeException(""));
+
     }
 }
