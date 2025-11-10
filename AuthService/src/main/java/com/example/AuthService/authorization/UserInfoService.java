@@ -19,7 +19,7 @@ public class UserInfoService implements UserDetailsService {
     }
 
     public void addUser(String username, String password) {
-        User user = new User(username, password);
+        User user = new User(username, passwordEncoder.encode(password));
         user.setRole("User");
 
         if(authRepository.findByUsername(username).isPresent()) {
