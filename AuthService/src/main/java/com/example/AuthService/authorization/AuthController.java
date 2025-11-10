@@ -21,8 +21,9 @@ public class AuthController {
 
     // Returning map is equal to returning json which helps in the future
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody AuthRequest credentials) {
-        return ResponseEntity.ok(authService.register(credentials.getUsername(), credentials.getPassword()));
+    public ResponseEntity<Map<String, String>> register(@RequestBody AuthRequest credentials) {
+        return ResponseEntity.ok(Map.of(
+                "Message", authService.register(credentials.getUsername(), credentials.getPassword())));
     }
 
     @PostMapping("/login")

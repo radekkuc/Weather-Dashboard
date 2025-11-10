@@ -37,15 +37,15 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String token = null;
         String username = null;
 
-        if(header != null && header.startsWith("Bearer")) {
+        if(header != null && header.startsWith("Bearer ")) {
             token = header.substring(7);
             username = jwtService.extractUsername(token);
         }
 
         // Second condition is just checking if user is not already authenticated
-        if(username != null && SecurityContextHolder.getContext().getAuthentication() != null) {
+        if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            if(jwtService.isValid(token) && jwtService.isExpired(token)) {
+            if(jwtService.isValid(token) && !jwtService.isExpired(token)) {
                 // This is Spring’s standard authentication object
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                     userDetails,
@@ -55,7 +55,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
-            filterChain.doFilter(request, response);
         }
+        filterChain.doFilter(request, response);
     }
 }
