@@ -27,8 +27,9 @@ public class AuthService {
         this.authenticationManager = authenticationManager;
     }
 
-    public void register(String username, String password) {
+    public String register(String username, String password) {
         userInfoService.addUser(username, password);
+        return "User registered successfully";
     }
 
     public String login(String username, String password) {
