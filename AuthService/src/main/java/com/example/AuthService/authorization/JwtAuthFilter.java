@@ -19,8 +19,8 @@ import java.io.IOException;
 // Must extend it to be treated as filter, it is run every http request
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
-    private UserDetailsService userDetailsService;
-    private JwtService jwtService;
+    private final UserDetailsService userDetailsService;
+    private final JwtService jwtService;
 
     @Autowired
     public JwtAuthFilter(UserDetailsService userDetailsService, JwtService jwtService) {

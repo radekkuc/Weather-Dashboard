@@ -12,16 +12,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthService {
-    private final AuthRepository authRepository;
-    private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final UserInfoService userInfoService;
     private final AuthenticationManager authenticationManager;
 
     @Autowired
-    public AuthService(AuthRepository authRepository, PasswordEncoder passwordEncoder, JwtService jwtService, UserInfoService userInfoService, AuthenticationManager authenticationManager) {
-        this.authRepository = authRepository;
-        this.passwordEncoder = passwordEncoder;
+    public AuthService(JwtService jwtService, UserInfoService userInfoService, AuthenticationManager authenticationManager) {
         this.jwtService = jwtService;
         this.userInfoService = userInfoService;
         this.authenticationManager = authenticationManager;

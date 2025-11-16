@@ -3,6 +3,8 @@ package com.example.AuthService.authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,15 +14,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 public class SecurityConfig {
-    private final JwtAuthFilter jwtAuthFilter;
-
-    @Autowired
-    public SecurityConfig(JwtAuthFilter filter) {
-        this.jwtAuthFilter = filter;
-    }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(JwtAuthFilter jwtAuthFilter, HttpSecurity http) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
@@ -35,6 +31,11 @@ public class SecurityConfig {
     // Without it, basic filter chain is implemented anyway but without this we would need to log before
     // every request and tokens would not work, UsernamePassword class is ready, no need to define it
     // yourself
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
