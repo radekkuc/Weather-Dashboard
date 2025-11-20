@@ -1,6 +1,5 @@
-package com.example.ProfileService.profile;
+package com.example.profileService.profile;
 
-import com.example.ProfileService.profile.weatherDto.WeatherDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/profile")
 public class CityController {
     private final CityService cityService;
     private final WeatherService weatherService;

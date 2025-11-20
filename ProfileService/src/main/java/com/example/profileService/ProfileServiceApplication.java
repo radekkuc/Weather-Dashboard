@@ -1,4 +1,4 @@
-package com.example.ProfileService;
+package com.example.profileService;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

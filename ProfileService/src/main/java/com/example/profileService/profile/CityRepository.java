@@ -1,4 +1,4 @@
-package com.example.ProfileService.profile;
+package com.example.profileService.profile;
 
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;

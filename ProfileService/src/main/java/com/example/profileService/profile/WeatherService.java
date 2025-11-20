@@ -1,7 +1,7 @@
-package com.example.ProfileService.profile;
+package com.example.profileService.profile;
 
-import com.example.ProfileService.profile.exception.CityNotFoundException;
-import com.example.ProfileService.profile.weatherDto.WeatherDto;
+import com.example.profileService.profile.exception.CityNotFoundException;
+import com.example.profileService.profile.weatherDto.WeatherDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

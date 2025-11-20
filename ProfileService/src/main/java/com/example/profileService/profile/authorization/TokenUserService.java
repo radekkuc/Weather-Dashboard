@@ -1,4 +1,4 @@
-package com.example.ProfileService.profile.authorization;
+package com.example.profileService.profile.authorization;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

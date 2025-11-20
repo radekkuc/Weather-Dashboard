@@ -1,4 +1,4 @@
-package com.example.ProfileService.profile.exception;
+package com.example.profileService.profile.exception;
 
 public class CityNotFoundException extends RuntimeException {
     public CityNotFoundException(String name) {

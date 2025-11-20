@@ -1,4 +1,4 @@
-package com.example.ProfileService.profile;
+package com.example.profileService.profile;
 
 public class CityRequest {
     private String name;

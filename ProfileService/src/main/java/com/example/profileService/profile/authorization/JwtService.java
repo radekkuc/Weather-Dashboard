@@ -1,4 +1,4 @@
-package com.example.ProfileService.profile.authorization;
+package com.example.profileService.profile.authorization;
 
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;

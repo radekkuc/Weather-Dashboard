@@ -1,4 +1,4 @@
-package com.example.ProfileService.profile;
+package com.example.profileService.profile;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
