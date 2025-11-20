@@ -2,6 +2,7 @@ package com.example.profileService.profile;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,33 +23,39 @@ public class CityController {
         return ResponseEntity.ok(Mapper.dtoToCity(null, weatherService.getCurrentWeather(city)));
     }
 
-    @GetMapping("/favourite/{userId}")
-    public ResponseEntity<List<City>> getFavouriteCities(@PathVariable Long userId) {
+    @GetMapping("/favourite")
+    public ResponseEntity<List<City>> getFavouriteCities(Authentication auth) {
+        long userId = Mapper.safeStringToLong(auth.getName());
         List<City> favourites = cityService.getFavouriteCities(userId);
         return ResponseEntity.ok(favourites);
     }
 
-    @PostMapping("/{userId}/favourite")
-    public ResponseEntity<City> addFavouriteCity(@PathVariable Long userId, @RequestBody CityRequest request) {
+    @PostMapping("/favourite")
+    public ResponseEntity<City> addFavouriteCity(Authentication auth, @RequestBody CityRequest request) {
         String name = request.getName();
+        Long userId = Mapper.safeStringToLong(auth.getName());
         City saved = cityService.addFavouriteCity(userId, name);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
-    @PostMapping("/{userId}/favourites")
-    public ResponseEntity<List<City>> addFavouriteCities(@PathVariable Long userId, @RequestBody List<String> names) {
+    @PostMapping("/favourites")
+    public ResponseEntity<List<City>> addFavouriteCities(Authentication auth,
+                                                         @RequestBody List<String> names) {
+        Long userId = Mapper.safeStringToLong(auth.getName());
         List<City> saved = cityService.addFavouriteCities(userId, names);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
 
-    @DeleteMapping("/{userId}/{name}")
-    public ResponseEntity<Void> deleteCity(@PathVariable Long userId, @PathVariable String name) {
+    @DeleteMapping("/{name}")
+    public ResponseEntity<Void> deleteCity(Authentication auth, @PathVariable String name) {
+        Long userId = Mapper.safeStringToLong(auth.getName());
         cityService.deleteCity(userId, name);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/{userId}")
-    public ResponseEntity<Void> deleteCities(@PathVariable Long userId, @RequestBody List<String> names){
+    @DeleteMapping
+    public ResponseEntity<Void> deleteCities(Authentication auth, @RequestBody List<String> names){
+        Long userId = Mapper.safeStringToLong(auth.getName());
         cityService.deleteCities(userId, names);
         return ResponseEntity.noContent().build();
     }

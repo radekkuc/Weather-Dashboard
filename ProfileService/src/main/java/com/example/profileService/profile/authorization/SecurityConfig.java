@@ -14,7 +14,7 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/profile/**").permitAll().anyRequest().authenticated())
+                        .requestMatchers("/profile/weather/**").permitAll().anyRequest().authenticated())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

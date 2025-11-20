@@ -24,4 +24,15 @@ public class Mapper {
         city.setCondition(dto.getCurrent().getCondition().getText());
         city.setPressure_mb(dto.getCurrent().getPressure_mb());
     }
+
+    public static Long safeStringToLong(String username) {
+        long userId;
+        try {
+            userId = Long.parseLong(username);
+            return userId;
+        }
+        catch(NumberFormatException e) {
+            throw new RuntimeException("Username can consist only numbers");
+        }
+    }
 }
