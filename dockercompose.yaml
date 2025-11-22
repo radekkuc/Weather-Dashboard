@@ -18,6 +18,7 @@ services:
   profile-service:
     build: ./ProfileService
     environment:
+      WEATHER_SERVICE_URL: ${WEATHER_SERVICE_URL}
       JWT_SECRET: ${JWT_SECRET}
       SPRING_DATASOURCE_URL: ${PROFILE_DB_URL}
       SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
