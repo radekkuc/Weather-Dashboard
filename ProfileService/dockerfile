@@ -1,0 +1,12 @@
+# dockerfile is a recipe how to build an image
+# image is a built dockerfile, result ready to be executed
+# container is a running instance of image
+# volume is a datastorage, everytime we run a container data selected for volume will be saved, for example a database
+
+FROM eclipse-temurin:21-jre
+
+WORKDIR /app
+
+COPY /target/ProfileService-0.0.1-SNAPSHOT.jar app.jar
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
