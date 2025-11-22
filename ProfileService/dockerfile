@@ -2,6 +2,8 @@
 # image is a built dockerfile, result ready to be executed
 # container is a running instance of image
 # volume is a datastorage, everytime we run a container data selected for volume will be saved, for example a database
+# .\mvnw.cmd clean package -DskipTests, clean deletes old target directory so there are no conflicts,
+# package: compile the code, run tests (unless skipped), and build the final deliverable.
 
 FROM eclipse-temurin:21-jre
 
