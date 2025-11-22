@@ -2,41 +2,49 @@ services:
   profile-db:
     image: postgres:16
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD:  1234
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: cities
     volumes:
       - pgdata-profile:/var/lib/postgresql/data
   auth-db:
     image: postgres:16
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1234
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: weatherdashboard
     volumes:
       - pgdata-auth:/var/lib/postgresql/data
   profile-service:
-    build: .
+    build: ./ProfileService
     environment:
-      SPIRNG-DATASOURCE-URL=jdbc:postgresql://localhost:5432/cities
-      SPRING-DATASOURCE-USERNAME=postgres
-      SPRING-DATASOURCE-PASSWORD=1234
+      JWT_SECRET: ${JWT_SECRET}
+      SPRING_DATASOURCE_URL: ${PROFILE_DB_URL}
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
     ports:
-      - 8081-8081
+      - "8081:8081"
     depends_on:
       - profile-db
 
   auth-service:
-    build: .
+    build: ./AuthService
     environment:
-      SPRING-DATASOURCE-URL: jdbc:postgresql://localhost:5432/weatherdashboard
-      SPRING-DATASOURCE-USERNAME: postgres
-      SPIRNG-DATASOURCE-PASSWORD: 1234
+      JWT_SECRET: ${JWT_SECRET}
+      SPRING_DATASOURCE_URL: ${AUTH_DB_URL}
+      SPRING_DATASOURCE_USERNAME: ${DB_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
     ports:
-      - 8082:8082
+      - "8082:8082"
     depends_on:
       - auth-db
   weather-service:
+    build: ./WeatherService
+    environment:
+      WEATHER_API_KEY: ${WEATHER_API_KEY}
+      WEATHER_API_URL: ${WEATHER_API_URL}
+    ports:
+      - "8080:8080"
 
 volumes:
   pgdata-profile:
